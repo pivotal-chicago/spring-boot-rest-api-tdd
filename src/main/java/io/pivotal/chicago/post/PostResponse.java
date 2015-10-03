@@ -1,4 +1,4 @@
-package io.pivotal.chicago.posts;
+package io.pivotal.chicago.post;
 
 public class PostResponse {
     private Long id;

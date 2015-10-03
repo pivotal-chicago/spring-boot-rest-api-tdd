@@ -1,4 +1,4 @@
-package io.pivotal.chicago.posts;
+package io.pivotal.chicago.post;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

@@ -1,4 +1,4 @@
-package io.pivotal.chicago.posts;
+package io.pivotal.chicago.post;
 
 import io.pivotal.chicago.error.ErrorResponse;
 import io.pivotal.chicago.error.InvalidResourceException;
