@@ -1,5 +1,7 @@
 package io.pivotal.chicago.posts;
 
+import io.pivotal.chicago.error.ErrorResponse;
+import io.pivotal.chicago.error.InvalidResourceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package io.pivotal.chicago.posts;
+package io.pivotal.chicago.error;
 
 import org.springframework.validation.Errors;
 
