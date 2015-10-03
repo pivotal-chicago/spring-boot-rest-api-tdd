@@ -20,4 +20,14 @@ public class DefaultPostService implements PostService {
         postResponse.setTitle(post.getTitle());
         return postResponse;
     }
+
+    @Override
+    public PostResponse find(Long id) {
+        Post post = postRepository.findOne(id);
+
+        PostResponse postResponse = new PostResponse();
+        postResponse.setId(post.getId());
+        postResponse.setTitle(post.getTitle());
+        return postResponse;
+    }
 }

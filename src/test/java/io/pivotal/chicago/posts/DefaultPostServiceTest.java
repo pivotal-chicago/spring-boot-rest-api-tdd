@@ -35,9 +35,9 @@ public class DefaultPostServiceTest {
         PostRequest postRequest = new PostRequest();
         postRequest.setTitle(title);
 
-        Post savedPost = mock(Post.class);
-        when(savedPost.getId())
-                .thenReturn(1L);
+        Post savedPost = when(mock(Post.class).getId())
+                .thenReturn(1L)
+                .getMock();
         when(savedPost.getTitle())
                 .thenReturn(title);
         when(postRepository.save(postArgumentCaptor.capture()))
@@ -48,5 +48,21 @@ public class DefaultPostServiceTest {
         assertThat(postArgumentCaptor.getValue().getTitle(), is(postRequest.getTitle()));
         assertThat(postResponse.getId(), is(savedPost.getId()));
         assertThat(postResponse.getTitle(), is(savedPost.getTitle()));
+    }
+
+    @Test
+    public void findingAnExistingPostByID() {
+        Post existingPost = when(mock(Post.class).getId())
+                .thenReturn(1L)
+                .getMock();
+        when(existingPost.getTitle())
+                .thenReturn("The title");
+        when(postRepository.findOne(1L))
+                .thenReturn(existingPost);
+
+        PostResponse postResponse = defaultPostService.find(1L);
+
+        assertThat(postResponse.getId(), is(existingPost.getId()));
+        assertThat(postResponse.getTitle(), is(existingPost.getTitle()));
     }
 }

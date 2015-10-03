@@ -40,7 +40,7 @@ public class PostsController {
         }
         PostResponse postResponse = postService.createPost(postRequest);
 
-        URI uri = fromMethodCall(on(PostsController.class).show(postResponse.getId().toString()))
+        URI uri = fromMethodCall(on(PostsController.class).show(postResponse.getId()))
                 .build()
                 .toUri();
 
@@ -48,8 +48,8 @@ public class PostsController {
     }
 
     @RequestMapping(value = "/posts/{id}", method = RequestMethod.GET)
-    public PostResponse show(@PathVariable String id) {
-        return null;
+    public PostResponse show(@PathVariable Long id) {
+        return postService.find(id);
     }
 
     @ExceptionHandler(InvalidResourceException.class)

@@ -16,6 +16,7 @@ import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -83,5 +84,16 @@ public class PostsControllerTest {
                 .content("{}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.errors", hasEntry("title", "can't be blank")));
+    }
+
+    @Test
+    public void viewingAPostAsksThePostServiceForThePost() throws Exception {
+        PostResponse postResponse = new PostResponse();
+        when(postService.find(1L))
+                .thenReturn(postResponse);
+
+        mockMvc.perform(get("/posts/{id}", "1")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }
