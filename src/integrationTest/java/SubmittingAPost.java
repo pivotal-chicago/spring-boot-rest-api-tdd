@@ -42,4 +42,17 @@ public class SubmittingAPost extends AbstractTransactionalJUnit4SpringContextTes
 
         assertThat(countRowsInTable("posts"), is(count + 1));
     }
+
+    @Test
+    public void failsWhenTryingToSubmitAnInvalidPost() throws Exception {
+        int count = countRowsInTable("posts");
+
+        mockMvc.perform(post("/posts")
+                .accept(MediaType.APPLICATION_JSON)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{}"))
+                .andExpect(status().isBadRequest());
+
+        assertThat(countRowsInTable("posts"), is(count));
+    }
 }
