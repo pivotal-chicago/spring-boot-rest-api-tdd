@@ -1,0 +1,30 @@
+sourceSets {
+    integrationTest {
+        java {
+            srcDir 'src/integrationTest/java'
+        }
+
+        compileClasspath = main.output + configurations.testRuntime
+        runtimeClasspath = output + compileClasspath
+    }
+}
+
+task integrationTest(type: Test) {
+    group = 'Build'
+    description = 'Run integration tests'
+
+    testClassesDir = sourceSets.integrationTest.output.classesDir
+    classpath = sourceSets.integrationTest.runtimeClasspath
+
+    reports {
+        junitXml {
+            destination file("$testResultsDir/integration")
+        }
+
+        html {
+            destination file("$testReportDir/integration")
+        }
+    }
+}
+
+check.dependsOn integrationTest

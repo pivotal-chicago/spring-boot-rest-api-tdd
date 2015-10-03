@@ -1,0 +1,17 @@
+test {
+    reports {
+        junitXml {
+            destination file("$testResultsDir/unit")
+        }
+
+        html {
+            destination file("$testReportDir/unit")
+        }
+    }
+}
+
+tasks.withType(Test) {
+    testLogging {
+        events 'passed', 'failed'
+    }
+}
