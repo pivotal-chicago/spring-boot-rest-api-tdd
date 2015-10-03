@@ -43,7 +43,7 @@ public class DefaultPostServiceTest {
         when(postRepository.save(postArgumentCaptor.capture()))
                 .thenReturn(savedPost);
 
-        PostResponse postResponse = defaultPostService.createPost(postRequest);
+        PostResponse postResponse = defaultPostService.create(postRequest);
 
         assertThat(postArgumentCaptor.getValue().getTitle(), is(postRequest.getTitle()));
         assertThat(postResponse.getId(), is(savedPost.getId()));

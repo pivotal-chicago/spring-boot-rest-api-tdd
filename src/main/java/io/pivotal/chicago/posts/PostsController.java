@@ -38,7 +38,7 @@ public class PostsController {
         if (errors.hasErrors()) {
             throw new InvalidResourceException(errors);
         }
-        PostResponse postResponse = postService.createPost(postRequest);
+        PostResponse postResponse = postService.create(postRequest);
 
         URI uri = fromMethodCall(on(PostsController.class).show(postResponse.getId()))
                 .build()

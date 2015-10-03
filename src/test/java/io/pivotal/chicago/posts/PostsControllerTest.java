@@ -56,7 +56,7 @@ public class PostsControllerTest {
                 .thenReturn(1L)
                 .getMock();
 
-        when(postService.createPost(isA(PostRequest.class)))
+        when(postService.create(isA(PostRequest.class)))
                 .thenReturn(postResponse);
 
         mockMvc.perform(post("/posts")

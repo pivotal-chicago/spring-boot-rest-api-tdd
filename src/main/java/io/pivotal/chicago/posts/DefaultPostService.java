@@ -9,7 +9,7 @@ public class DefaultPostService implements PostService {
     private PostRepository postRepository;
 
     @Override
-    public PostResponse createPost(PostRequest postRequest) {
+    public PostResponse create(PostRequest postRequest) {
         Post post = new Post();
         post.setTitle(postRequest.getTitle());
 
