@@ -1,0 +1,5 @@
+CREATE TABLE posts (
+  id BIGINT AUTO_INCREMENT NOT NULL,
+  title VARCHAR(255),
+  PRIMARY KEY (id)
+)

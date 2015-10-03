@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="app" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="io.pivotal.chicago.Application" />
+    <option name="DEBUG_MODE" value="true" />
+    <option name="PROGRAM_PARAMETERS" value="¨¨" />
+    <module name="spring-boot-rest-api-tdd" />
+    <envs />
+    <method />
+  </configuration>
+</component>

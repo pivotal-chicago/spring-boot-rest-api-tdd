@@ -1,0 +1,12 @@
+apply plugin: 'org.flywaydb.flyway'
+
+ext {
+    env = project.hasProperty('env') ? project.env : 'development'
+    dbConfigFile = file "$projectDir/config/database.groovy"
+    dbConfig = new ConfigSlurper(env).parse(dbConfigFile.toURL())
+}
+
+flyway {
+    url = dbConfig.url
+    user = dbConfig.user
+}
