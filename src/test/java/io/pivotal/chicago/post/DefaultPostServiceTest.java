@@ -10,6 +10,8 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
+import java.util.Optional;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
@@ -60,9 +62,20 @@ public class DefaultPostServiceTest {
         when(postRepository.findOne(1L))
                 .thenReturn(existingPost);
 
-        PostResponse postResponse = defaultPostService.find(1L);
+        Optional<PostResponse> optionalPostResponse = defaultPostService.find(1L);
 
+        PostResponse postResponse = optionalPostResponse.get();
         assertThat(postResponse.getId(), is(existingPost.getId()));
         assertThat(postResponse.getTitle(), is(existingPost.getTitle()));
+    }
+
+    @Test
+    public void returnsNothingWhenUnableToFindAnExistingPostByID() {
+        when(postRepository.findOne(1L))
+                .thenReturn(null);
+
+        Optional<PostResponse> optionalPostResponse = defaultPostService.find(1L);
+
+        assertThat(optionalPostResponse.isPresent(), is(false));
     }
 }

@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.validation.Errors;
 
+import java.util.Optional;
+
 import static org.hamcrest.Matchers.hasEntry;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Matchers.isA;
@@ -90,10 +92,19 @@ public class PostsControllerTest {
     public void viewingAPostAsksThePostServiceForThePost() throws Exception {
         PostResponse postResponse = new PostResponse();
         when(postService.find(1L))
-                .thenReturn(postResponse);
+                .thenReturn(Optional.of(postResponse));
 
         mockMvc.perform(get("/posts/{id}", "1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
+    }
+    @Test
+    public void returnsNotFoundWhenUnableToFindThePost() throws Exception {
+        when(postService.find(-1L))
+                .thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/posts/{id}", "-1")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }

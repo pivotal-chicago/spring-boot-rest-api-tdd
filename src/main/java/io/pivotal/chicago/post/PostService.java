@@ -1,7 +1,9 @@
 package io.pivotal.chicago.post;
 
+import java.util.Optional;
+
 public interface PostService {
     PostResponse create(PostRequest postRequest);
 
-    PostResponse find(Long id);
+    Optional<PostResponse> find(Long id);
 }

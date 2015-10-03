@@ -34,10 +34,17 @@ public class ViewingAPost extends AbstractTransactionalJUnit4SpringContextTests 
     @Test
     @Sql(statements = "insert into posts(id, title) values(1, \"The title\")")
     public void returnsThePostAsJson() throws Exception {
-        mockMvc.perform(get("/posts/1")
+        mockMvc.perform(get("/posts/{id}", "1")
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.title", is("The title")));
+    }
+
+    @Test
+    public void failsWhenTryingToViewAnUnknownPost() throws Exception {
+        mockMvc.perform(get("/posts/{id}", "-1")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 }

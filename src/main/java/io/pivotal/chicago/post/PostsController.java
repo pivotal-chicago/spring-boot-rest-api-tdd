@@ -2,6 +2,7 @@ package io.pivotal.chicago.post;
 
 import io.pivotal.chicago.error.ErrorResponse;
 import io.pivotal.chicago.error.InvalidResourceException;
+import io.pivotal.chicago.error.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toMap;
 import static org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder.fromMethodCall;
@@ -46,12 +48,18 @@ public class PostsController {
                 .build()
                 .toUri();
 
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity
+                .created(uri)
+                .build();
     }
 
     @RequestMapping(value = "/posts/{id}", method = RequestMethod.GET)
     public PostResponse show(@PathVariable Long id) {
-        return postService.find(id);
+        Optional<PostResponse> optionalPostResponse = postService.find(id);
+        if (!optionalPostResponse.isPresent()) {
+            throw new ResourceNotFoundException();
+        }
+        return optionalPostResponse.get();
     }
 
     @ExceptionHandler(InvalidResourceException.class)
